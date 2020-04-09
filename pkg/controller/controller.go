@@ -24,10 +24,10 @@ import (
 	"time"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/bitnami-labs/kubewatch/config"
-	"github.com/bitnami-labs/kubewatch/pkg/event"
-	"github.com/bitnami-labs/kubewatch/pkg/handlers"
-	"github.com/bitnami-labs/kubewatch/pkg/utils"
+	"github.com/tghaas/kubewatch/config"
+	"github.com/tghaas/kubewatch/pkg/event"
+	"github.com/tghaas/kubewatch/pkg/handlers"
+	"github.com/tghaas/kubewatch/pkg/utils"
 
 	apps_v1beta1 "k8s.io/api/apps/v1beta1"
 	autoscale_v2beta1 "k8s.io/api/autoscaling/v2beta1"

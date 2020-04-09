@@ -21,10 +21,10 @@ import (
 	"os"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/bitnami-labs/kubewatch/config"
-	c "github.com/bitnami-labs/kubewatch/pkg/client"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"github.com/tghaas/kubewatch/config"
+	c "github.com/tghaas/kubewatch/pkg/client"
 )
 
 var cfgFile string

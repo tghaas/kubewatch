@@ -22,9 +22,9 @@ import (
 	"os"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/bitnami-labs/kubewatch/config"
-	"github.com/bitnami-labs/kubewatch/pkg/client"
 	"github.com/spf13/cobra"
+	"github.com/tghaas/kubewatch/config"
+	"github.com/tghaas/kubewatch/pkg/client"
 )
 
 // configCmd represents the config command

@@ -18,8 +18,8 @@ package cmd
 
 import (
 	"github.com/Sirupsen/logrus"
-	"github.com/bitnami-labs/kubewatch/config"
 	"github.com/spf13/cobra"
+	"github.com/tghaas/kubewatch/config"
 )
 
 // flockConfigCmd represents the flock subcommand

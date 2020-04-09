@@ -25,8 +25,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/bitnami-labs/kubewatch/config"
-	"github.com/bitnami-labs/kubewatch/pkg/event"
+	"github.com/tghaas/kubewatch/config"
+	"github.com/tghaas/kubewatch/pkg/event"
 )
 
 var msteamsErrMsg = `
