@@ -18,6 +18,7 @@ import (
 
 	"github.com/bitnami-labs/kubewatch/pkg/utils"
 	apps_v1beta1 "k8s.io/api/apps/v1beta1"
+	autoscale_v2beta1 "k8s.io/api/autoscaling/v2beta1"
 	batch_v1 "k8s.io/api/batch/v1"
 	api_v1 "k8s.io/api/core/v1"
 	ext_v1beta1 "k8s.io/api/extensions/v1beta1"
@@ -79,6 +80,8 @@ func New(obj interface{}, action string) Event {
 		kind = "secret"
 	case *api_v1.ConfigMap:
 		kind = "configmap"
+	case *autoscale_v2beta1.HorizontalPodAutoscaler:
+		kind = "autoscale"
 	case Event:
 		name = object.Name
 		kind = object.Kind

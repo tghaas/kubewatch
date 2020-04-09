@@ -30,6 +30,7 @@ import (
 	"github.com/bitnami-labs/kubewatch/pkg/utils"
 
 	apps_v1beta1 "k8s.io/api/apps/v1beta1"
+	autoscale_v2beta1 "k8s.io/api/autoscaling/v2beta1"
 	batch_v1 "k8s.io/api/batch/v1"
 	api_v1 "k8s.io/api/core/v1"
 	ext_v1beta1 "k8s.io/api/extensions/v1beta1"
@@ -332,6 +333,30 @@ func Start(conf *config.Config, eventHandler handlers.Handler) {
 		)
 
 		c := newResourceController(kubeClient, eventHandler, informer, "ingress")
+		stopCh := make(chan struct{})
+		defer close(stopCh)
+
+		go c.Run(stopCh)
+	}
+
+	if conf.Resource.HorizontalPodAutoscaler {
+		informer := cache.NewSharedIndexInformer(
+			&cache.ListWatch{
+				ListFunc: func(options meta_v1.ListOptions) (runtime.Object, error) {
+					return kubeClient.AutoscalingV2beta1().HorizontalPodAutoscalers(conf.Namespace).List(options)
+					// return kubeClient.ExtensionsV1beta1().Ingresses(conf.Namespace).List(options)
+				},
+				WatchFunc: func(options meta_v1.ListOptions) (watch.Interface, error) {
+					return kubeClient.AutoscalingV2beta1().HorizontalPodAutoscalers(conf.Namespace).Watch(options)
+					// return kubeClient.ExtensionsV1beta1().Ingresses(conf.Namespace).Watch(options)
+				},
+			},
+			&autoscale_v2beta1.HorizontalPodAutoscaler{},
+			0, //Skip resync
+			cache.Indexers{},
+		)
+
+		c := newResourceController(kubeClient, eventHandler, informer, "autoscaler")
 		stopCh := make(chan struct{})
 		defer close(stopCh)
 

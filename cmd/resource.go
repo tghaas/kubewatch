@@ -129,6 +129,10 @@ func configureResource(operation string, cmd *cobra.Command, conf *config.Config
 			"ing",
 			&conf.Resource.Ingress,
 		},
+		{
+			"hpa",
+			&conf.Resource.HorizontalPodAutoscaler,
+		},
 	}
 
 	for _, flag := range flags {
@@ -173,4 +177,5 @@ func init() {
 	resourceConfigCmd.PersistentFlags().Bool("secret", false, "watch for plain secrets")
 	resourceConfigCmd.PersistentFlags().Bool("cm", false, "watch for plain configmaps")
 	resourceConfigCmd.PersistentFlags().Bool("ing", false, "watch for ingresses")
+	resourceConfigCmd.PersistentFlags().Bool("hpa", false, "watch for horizontal pod autoscalers")
 }

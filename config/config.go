@@ -40,18 +40,19 @@ type Handler struct {
 
 // Resource contains resource configuration
 type Resource struct {
-	Deployment            bool `json:"deployment"`
-	ReplicationController bool `json:"rc"`
-	ReplicaSet            bool `json:"rs"`
-	DaemonSet             bool `json:"ds"`
-	Services              bool `json:"svc"`
-	Pod                   bool `json:"po"`
-	Job                   bool `json:"job"`
-	PersistentVolume      bool `json:"pv"`
-	Namespace             bool `json:"ns"`
-	Secret                bool `json:"secret"`
-	ConfigMap             bool `json:"configmap"`
-	Ingress               bool `json:"ing"`
+	Deployment              bool `json:"deployment"`
+	ReplicationController   bool `json:"rc"`
+	ReplicaSet              bool `json:"rs"`
+	DaemonSet               bool `json:"ds"`
+	Services                bool `json:"svc"`
+	Pod                     bool `json:"po"`
+	Job                     bool `json:"job"`
+	PersistentVolume        bool `json:"pv"`
+	Namespace               bool `json:"ns"`
+	Secret                  bool `json:"secret"`
+	ConfigMap               bool `json:"configmap"`
+	Ingress                 bool `json:"ing"`
+	HorizontalPodAutoscaler bool `json:"hpa"`
 }
 
 // Config struct contains kubewatch configuration
@@ -194,6 +195,9 @@ func (c *Config) CheckMissingResourceEnvvars() {
 	}
 	if (c.Handler.Slack.Token == "") && (os.Getenv("SLACK_TOKEN") != "") {
 		c.Handler.Slack.Token = os.Getenv("SLACK_TOKEN")
+	}
+	if !c.Resource.HorizontalPodAutoscaler && os.Getenv("KW_AUTOSCALER") == "true" {
+		c.Resource.HorizontalPodAutoscaler = true
 	}
 }
 
